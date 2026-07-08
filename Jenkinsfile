@@ -25,14 +25,16 @@ pipeline {
         }
 
         stage('Publish Report') {
-            steps {
-                archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
-                publishHTML([
-                    reportDir: 'playwright-report',
-                    reportFiles: 'index.html',
-                    reportName: 'Playwright Test Report'
-                ])
-            }
-        }
+    steps {
+        publishHTML(target: [
+            reportDir: 'playwright-report',
+            reportFiles: 'index.html',
+            reportName: 'Playwright HTML Report',
+            keepAll: true,
+            alwaysLinkToLastBuild: true,
+            allowMissing: false
+        ])
+    }
+}
     }
 }
